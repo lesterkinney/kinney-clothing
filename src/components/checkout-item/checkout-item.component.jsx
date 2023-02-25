@@ -1,25 +1,55 @@
-import './checkout-item.styles.scss';
 import { useContext } from 'react';
 import { CartContext } from '../../contexts/cart.context';
+import {
+  CheckoutItemContainer,
+  Image,
+  ImageContainer,
+  Name,
+  Quantity,
+  Price,
+  RemoveButton,
+  QuantityValue,
+} from './checkout-item.styles';
 
 const CheckoutItem = ({ cartItem }) => {
-    const { imageUrl, name, price, quantity } = cartItem;
+  const { imageUrl, name, price, quantity } = cartItem;
 
-    const { addItemToCart, removeItemFromCart, removeAllItemsFromCart } = useContext(CartContext);
+  const { addItemToCart, removeItemFromCart, removeAllItemsFromCart } =
+    useContext(CartContext);
 
-    return (
-        <div className='checkout-item-container'>
-            <div className='image-container'><img src={imageUrl} alt={name} /></div>
-            <span className='name'>{name}</span>
-            <div className='quantity'>
-                <button onClick={() => { removeItemFromCart(cartItem) }}>-</button>
-                <span>{quantity}</span>
-                <button onClick={() => { addItemToCart(cartItem) }}>+</button>
-            </div>
-            <span className='price'>${price}</span>
-            <button className='remove-button' onClick={() => { removeAllItemsFromCart(cartItem) }}>&#10005;</button>
-        </div>
-    );
-}
+  return (
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <Image
+          src={imageUrl}
+          alt={name}
+        />
+      </ImageContainer>
+      <Name>{name}</Name>
+      <Quantity>
+        <button
+          onClick={() => {
+            removeItemFromCart(cartItem);
+          }}>
+          -
+        </button>
+        <QuantityValue>{quantity}</QuantityValue>
+        <button
+          onClick={() => {
+            addItemToCart(cartItem);
+          }}>
+          +
+        </button>
+      </Quantity>
+      <Price>${price}</Price>
+      <RemoveButton
+        onClick={() => {
+          removeAllItemsFromCart(cartItem);
+        }}>
+        &#10005;
+      </RemoveButton>
+    </CheckoutItemContainer>
+  );
+};
 
 export default CheckoutItem;

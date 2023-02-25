@@ -1,18 +1,28 @@
-import './directory-item.styles.scss';
+import {
+  BackgroundImage,
+  Body,
+  DirectoryItemContainer,
+  NavLink,
+} from './directory-item.styles';
 
 const DirectoryItem = ({ category }) => {
   const { imageUrl, title } = category;
-    return (
-          <div className="directory-item-container">
-            <div className="background-image" style={{
-              backgroundImage: `url(${imageUrl})`
-            }}/>
-            <div className="directory-body-container">
-              <h2>{title}</h2>
-              <p>Shop Now</p>
-            </div>
-          </div>
-    )
-}
+  const route = `shop/${title.toLowerCase()}`;
+  return (
+    <DirectoryItemContainer>
+      <BackgroundImage
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+        }}
+      />
+      <Body>
+        <NavLink to={route}>
+          <h2>{title}</h2>
+          <p>Shop Now</p>
+        </NavLink>
+      </Body>
+    </DirectoryItemContainer>
+  );
+};
 
 export default DirectoryItem;
